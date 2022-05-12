@@ -18,7 +18,7 @@ const VendProductContainer = styled.ul`
   }
 `;
 
-const PriceLabel = styled.div`
+const PriceLabel = styled.span`
   display: grid;
   place-items: center;
   margin-top: 20px;
@@ -30,7 +30,7 @@ function Vendproduct() {
       {product.map(({ id, name, price, stocked }) => (
         <li key={id}>
           <Button color={stocked ? "green" : "white"} size="small">
-            {name}
+            <strong>{name}</strong>
           </Button>
           <PriceLabel>{price + "원"}</PriceLabel>
         </li>

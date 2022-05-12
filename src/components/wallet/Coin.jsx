@@ -4,21 +4,22 @@ import { Button } from "components";
 const CoinContainer = styled.ul`
   li {
     display: grid;
+    justify-items: center;
     align-items: center;
     grid-template-columns: 50% 50%;
+    margin: 10px;
 
-    div {
+    span {
+      width: 100%;
       background-color: #fff7bc;
       display: grid;
       place-items: center;
       height: 50px;
       color: #000;
-      margin: 10px;
+      border-radius: 10px;
     }
   }
 `;
-
-const Count = styled.div``;
 
 function Coin({ coin }) {
   return (
@@ -26,9 +27,9 @@ function Coin({ coin }) {
       {coin.map(({ id, unit, count }) => (
         <li key={id}>
           <Button color="yellow" size="medium">
-            {unit}
+            <strong>{unit}</strong>
           </Button>
-          <Count>{count}</Count>
+          <span>{count}</span>
         </li>
       ))}
     </CoinContainer>

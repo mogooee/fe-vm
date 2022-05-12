@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Outlet } from "react-router-dom";
-import { DisplayContext, CoinProvider } from "context";
+import { DisplayContext, CoinProvider, InsertCoinProvider } from "context";
 import { AppLayout, MainNav, ToggleDisplay } from "components";
 import { theme } from "styles";
 
@@ -12,9 +12,11 @@ function Home() {
     <AppLayout display={displayObject}>
       <ToggleDisplay />
       <MainNav />
-      <CoinProvider>
-        <Outlet />
-      </CoinProvider>
+      <InsertCoinProvider>
+        <CoinProvider>
+          <Outlet />
+        </CoinProvider>
+      </InsertCoinProvider>
     </AppLayout>
   );
 }

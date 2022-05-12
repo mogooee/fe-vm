@@ -1,8 +1,8 @@
-import { AppLayout, MainNav, ToggleDisplay } from "components";
-import { Outlet } from "react-router-dom";
-import { DisplayContext } from "context";
-import { theme } from "styles";
 import { useContext } from "react";
+import { Outlet } from "react-router-dom";
+import { DisplayContext, CoinProvider } from "context";
+import { AppLayout, MainNav, ToggleDisplay } from "components";
+import { theme } from "styles";
 
 function Home() {
   const { displayMode } = useContext(DisplayContext);
@@ -12,7 +12,9 @@ function Home() {
     <AppLayout display={displayObject}>
       <ToggleDisplay />
       <MainNav />
-      <Outlet />
+      <CoinProvider>
+        <Outlet />
+      </CoinProvider>
     </AppLayout>
   );
 }

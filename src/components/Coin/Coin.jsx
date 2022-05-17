@@ -8,7 +8,7 @@ function Coin({ unit, count }) {
 
   const clickCoin = () => {
     if (!count) return;
-    selectCoin(unit, count);
+    selectCoin(unit);
     setInsertCoin(insertCoin + unit);
   };
 

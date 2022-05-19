@@ -4,7 +4,7 @@ import { Button } from "components";
 const PriceLabel = styled.span`
   display: grid;
   place-items: center;
-  margin-top: 20px;
+  margin-top: 30px;
 `;
 
 function VendProduct({ name, price, stocked }) {

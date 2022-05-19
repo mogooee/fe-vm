@@ -23,7 +23,14 @@ function useCoin(init) {
       });
 
       const totalCoin = coinArr.reduce((acc, { total }) => acc + total, 0);
-      if (inputCoin > totalCoin) return totalCoin;
+      if (inputCoin > totalCoin) {
+        setCoin((prevCoin) =>
+          prevCoin.map((current) => {
+            return { ...current, count: 0 };
+          })
+        );
+        return totalCoin;
+      }
 
       function recursive(remainCoin) {
         for (let i = 0; i < coinArr.length; i++) {

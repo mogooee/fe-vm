@@ -22,6 +22,7 @@ const initialHistory = {
 };
 
 const HistoryContext = createContext();
+const AddHistoryContext = createContext();
 
 function HistoryProvider({ children }) {
   const [histories, dispatch] = useReducer(historyReducer, initialHistory);
@@ -33,7 +34,11 @@ function HistoryProvider({ children }) {
     });
   }, []);
 
-  return <HistoryContext.Provider value={{ histories, addHistory }}>{children}</HistoryContext.Provider>;
+  return (
+    <HistoryContext.Provider value={histories}>
+      <AddHistoryContext.Provider value={addHistory}>{children}</AddHistoryContext.Provider>
+    </HistoryContext.Provider>
+  );
 }
 
-export { HistoryContext, HistoryProvider };
+export { HistoryContext, AddHistoryContext, HistoryProvider };

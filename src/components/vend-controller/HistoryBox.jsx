@@ -18,7 +18,7 @@ function History({ comment }) {
 }
 
 function HistoryBox() {
-  const { histories } = useContext(HistoryContext);
+  const histories = useContext(HistoryContext);
 
   return (
     <StyledHistoryBox>

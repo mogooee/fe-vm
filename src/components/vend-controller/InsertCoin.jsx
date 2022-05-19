@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useContext } from "react";
-import { CorrectCoinContext, InsertCoinContext, SetInsertCoinContext, HistoryContext } from "context";
+import { CorrectCoinContext, InsertCoinContext, SetInsertCoinContext, AddHistoryContext } from "context";
 
 const StyledInsertCoin = styled.input`
   width: 100%;
@@ -28,7 +28,7 @@ function InsertCoin() {
   const correctCoin = useContext(CorrectCoinContext);
   const insertCoin = useContext(InsertCoinContext);
   const setInsertCoin = useContext(SetInsertCoinContext);
-  const { addHistory } = useContext(HistoryContext);
+  const addHistory = useContext(AddHistoryContext);
 
   const handleInsertCoinBlur = ({ target }) => {
     const input = Number(target.value);

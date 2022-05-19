@@ -18,16 +18,27 @@ function useCoin(init) {
     (inputCoin) => {
       let acc = 0;
 
-      for (let i = 0; i < coin.length; i++) {
-        const { unit, count } = coin[i];
-        for (let i = 0; i < count; i++) {
-          if (inputCoin < acc) {
-            return acc;
+      const coinArr = coin.map((obj) => {
+        return { ...obj, total: obj.unit * obj.count };
+      });
+
+      function recursive(remainCoin) {
+        for (let i = 0; i < coinArr.length; i++) {
+          const { unit, count, total } = coinArr[i];
+
+          if (inputCoin <= acc) return acc;
+          else if (Math.floor(total / remainCoin) > 0) {
+            if (count) {
+              selectCoin(unit);
+              acc += unit;
+              const result = recursive(remainCoin - unit);
+              return result;
+            }
           }
-          selectCoin(unit);
-          acc += unit;
         }
       }
+
+      return recursive(inputCoin);
     },
     [coin, selectCoin]
   );

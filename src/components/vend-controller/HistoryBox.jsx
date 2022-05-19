@@ -19,6 +19,7 @@ function History({ comment }) {
 
 function HistoryBox() {
   const { histories } = useContext(HistoryContext);
+
   return (
     <StyledHistoryBox>
       {histories.history.map(({ id, comment }) => (

@@ -1,6 +1,6 @@
-import { useContext } from "react";
-import { InsertCoinContext } from "context";
 import styled from "styled-components";
+import { useContext } from "react";
+import { CorrectCoinContext, InsertCoinContext, SetInsertCoinContext, AddHistoryContext } from "context";
 
 const StyledInsertCoin = styled.input`
   width: 100%;
@@ -17,16 +17,35 @@ const StyledInsertCoin = styled.input`
   }
 `;
 
+const TotalInsertCoin = styled.p`
+  color: #f2f2f2;
+  border: 2px solid;
+  border-radius: 10px;
+  padding: 20px;
+`;
+
 function InsertCoin() {
+  const correctCoin = useContext(CorrectCoinContext);
   const insertCoin = useContext(InsertCoinContext);
+  const setInsertCoin = useContext(SetInsertCoinContext);
+  const addHistory = useContext(AddHistoryContext);
+
+  const handleInsertCoinBlur = ({ target }) => {
+    const input = Number(target.value);
+    target.value = "";
+    if (!input) return;
+    const correctedCoin = correctCoin(input);
+    setInsertCoin((prevInsertCoin) => prevInsertCoin + correctedCoin);
+    addHistory("INSERT_COIN", {
+      coin: correctedCoin,
+    });
+  };
 
   return (
-    <StyledInsertCoin
-      defaultValue={insertCoin}
-      type="number"
-      min="0"
-      placeholder="INSERT COIN"
-    ></StyledInsertCoin>
+    <>
+      <StyledInsertCoin type="number" min="0" placeholder="INSERT COIN" onBlur={handleInsertCoinBlur} />
+      <TotalInsertCoin>{insertCoin}</TotalInsertCoin>
+    </>
   );
 }
 

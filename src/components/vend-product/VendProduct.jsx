@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button } from "components";
+import { SelectButton } from "./SelectButton";
 
 const PriceLabel = styled.span`
   display: grid;
@@ -10,9 +10,7 @@ const PriceLabel = styled.span`
 function VendProduct({ name, price, stocked }) {
   return (
     <>
-      <Button color={stocked ? "green" : "white"} size="small">
-        <strong>{name}</strong>
-      </Button>
+      <SelectButton name={name} price={price} stocked={stocked} />
       <PriceLabel>{price + "원"}</PriceLabel>
     </>
   );

@@ -31,14 +31,14 @@ function InsertCoin() {
   const { addHistory } = useContext(HistoryContext);
 
   const handleInsertCoinBlur = ({ target }) => {
-    const input = target.value;
+    const input = Number(target.value);
+    target.value = "";
     if (!input) return;
     const correctedCoin = correctCoin(input);
     setInsertCoin((prevInsertCoin) => prevInsertCoin + correctedCoin);
     addHistory("INSERT_COIN", {
       coin: correctedCoin,
     });
-    target.value = "";
   };
 
   return (

@@ -22,6 +22,9 @@ function useCoin(init) {
         return { ...obj, total: obj.unit * obj.count };
       });
 
+      const totalCoin = coinArr.reduce((acc, { total }) => acc + total, 0);
+      if (inputCoin > totalCoin) return totalCoin;
+
       function recursive(remainCoin) {
         for (let i = 0; i < coinArr.length; i++) {
           const { unit, count, total } = coinArr[i];

@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { useContext } from "react";
-import { CorrectCoinContext, InsertCoinContext, SetInsertCoinContext, AddHistoryContext } from "context";
-import { useEffect } from "react";
-import { useTimer } from "hooks";
+import { AddHistoryContext, CorrectCoinContext, InsertCoinContext, SetInsertCoinContext } from "context";
 
 const StyledInsertCoin = styled.input`
   width: 100%;
@@ -29,9 +27,8 @@ const TotalInsertCoin = styled.p`
 function InsertCoin() {
   const correctCoin = useContext(CorrectCoinContext);
   const insertCoin = useContext(InsertCoinContext);
-  const setInsertCoin = useContext(SetInsertCoinContext);
   const addHistory = useContext(AddHistoryContext);
-  const { setDebounce } = useTimer();
+  const setInsertCoin = useContext(SetInsertCoinContext);
 
   const handleInsertCoinBlur = ({ target }) => {
     const inputCoin = Number(target.value);
@@ -44,18 +41,6 @@ function InsertCoin() {
       coin: correctedCoin,
     });
   };
-
-  useEffect(() => {
-    if (!insertCoin) return;
-    const delaySelectTime = 5000;
-
-    const autoReturn = () => {
-      setInsertCoin(0);
-      addHistory("RETURN_COIN", { change: insertCoin });
-    };
-
-    setDebounce(autoReturn, delaySelectTime);
-  }, [setInsertCoin, addHistory, insertCoin]);
 
   return (
     <>

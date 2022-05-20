@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import { useContext } from "react";
-import { CorrectCoinContext, InsertCoinContext, SetInsertCoinContext, AddHistoryContext } from "context";
+import {
+  CorrectCoinContext,
+  InsertCoinContext,
+  SetInsertCoinContext,
+  AddHistoryContext,
+  SetInsertCoinFlagContext,
+} from "context";
+import { useEffect } from "react";
 
 const StyledInsertCoin = styled.input`
   width: 100%;
@@ -29,17 +36,32 @@ function InsertCoin() {
   const insertCoin = useContext(InsertCoinContext);
   const setInsertCoin = useContext(SetInsertCoinContext);
   const addHistory = useContext(AddHistoryContext);
+  //const setInsertCoinFlag = useContext(SetInsertCoinFlagContext);
 
   const handleInsertCoinBlur = ({ target }) => {
-    const input = Number(target.value);
+    const inputCoin = Number(target.value);
     target.value = "";
-    if (!input) return;
-    const correctedCoin = correctCoin(input);
+
+    if (!inputCoin) return;
+    const correctedCoin = correctCoin(inputCoin);
     setInsertCoin((prevInsertCoin) => prevInsertCoin + correctedCoin);
     addHistory("INSERT_COIN", {
       coin: correctedCoin,
     });
+    // setInsertCoinFlag(true);
   };
+
+  useEffect(() => {
+    if (!insertCoin) return;
+    const delaySelectTime = 5000;
+
+    //디바운스 처리
+    setTimeout(() => {
+      // setInsertCoinFlag(false);
+      setInsertCoin(0);
+      addHistory("RETURN_COIN", { change: insertCoin });
+    }, delaySelectTime);
+  }, [insertCoin]);
 
   return (
     <>

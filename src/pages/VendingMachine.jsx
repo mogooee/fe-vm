@@ -19,13 +19,6 @@ const VendingMachineTop = styled.div`
   display: flex;
 `;
 
-const VendProductOutlet = styled.div`
-  width: 100%;
-  height: 170px;
-  background-color: #ddd;
-  margin-top: 50px;
-`;
-
 const VendingMachine = () => {
   return (
     <StyledVendingMachine>
@@ -34,7 +27,6 @@ const VendingMachine = () => {
         <VendProductContainer />
         <VendController />
       </VendingMachineTop>
-      <VendProductOutlet />
     </StyledVendingMachine>
   );
 };

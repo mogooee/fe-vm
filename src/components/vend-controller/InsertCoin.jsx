@@ -1,13 +1,8 @@
 import styled from "styled-components";
 import { useContext } from "react";
-import {
-  CorrectCoinContext,
-  InsertCoinContext,
-  SetInsertCoinContext,
-  AddHistoryContext,
-  SetInsertCoinFlagContext,
-} from "context";
+import { CorrectCoinContext, InsertCoinContext, SetInsertCoinContext, AddHistoryContext } from "context";
 import { useEffect } from "react";
+import { useTimer } from "hooks";
 
 const StyledInsertCoin = styled.input`
   width: 100%;
@@ -36,7 +31,7 @@ function InsertCoin() {
   const insertCoin = useContext(InsertCoinContext);
   const setInsertCoin = useContext(SetInsertCoinContext);
   const addHistory = useContext(AddHistoryContext);
-  //const setInsertCoinFlag = useContext(SetInsertCoinFlagContext);
+  const { setTimer } = useTimer();
 
   const handleInsertCoinBlur = ({ target }) => {
     const inputCoin = Number(target.value);
@@ -48,20 +43,19 @@ function InsertCoin() {
     addHistory("INSERT_COIN", {
       coin: correctedCoin,
     });
-    // setInsertCoinFlag(true);
   };
 
   useEffect(() => {
     if (!insertCoin) return;
     const delaySelectTime = 5000;
 
-    //디바운스 처리
-    setTimeout(() => {
-      // setInsertCoinFlag(false);
+    const autoReturn = () => {
       setInsertCoin(0);
       addHistory("RETURN_COIN", { change: insertCoin });
-    }, delaySelectTime);
-  }, [insertCoin]);
+    };
+
+    setTimer(autoReturn, delaySelectTime);
+  }, [setInsertCoin, addHistory, insertCoin, setTimer]);
 
   return (
     <>

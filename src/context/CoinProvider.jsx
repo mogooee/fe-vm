@@ -1,10 +1,7 @@
-import React, { createContext } from "react";
-import { useCoin } from "hooks";
-import { money } from "data";
-import { useTimer } from "hooks";
+import React, { createContext, useEffect, useContext } from "react";
+import { useCoin, useTimer } from "hooks";
 import { SetInsertCoinContext, InsertCoinContext, AddHistoryContext } from "context";
-import { useEffect } from "react";
-import { useContext } from "react";
+import { money } from "data";
 
 const CoinContext = createContext();
 const SelectCoinContext = createContext();

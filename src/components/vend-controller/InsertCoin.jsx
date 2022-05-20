@@ -31,7 +31,7 @@ function InsertCoin() {
   const insertCoin = useContext(InsertCoinContext);
   const setInsertCoin = useContext(SetInsertCoinContext);
   const addHistory = useContext(AddHistoryContext);
-  const { setTimer } = useTimer();
+  const { setDebounce } = useTimer();
 
   const handleInsertCoinBlur = ({ target }) => {
     const inputCoin = Number(target.value);
@@ -54,8 +54,8 @@ function InsertCoin() {
       addHistory("RETURN_COIN", { change: insertCoin });
     };
 
-    setTimer(autoReturn, delaySelectTime);
-  }, [setInsertCoin, addHistory, insertCoin, setTimer]);
+    setDebounce(autoReturn, delaySelectTime);
+  }, [setInsertCoin, addHistory, insertCoin]);
 
   return (
     <>

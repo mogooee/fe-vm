@@ -26,10 +26,9 @@ function useCoin(init) {
   };
 
   const correctCoin = useCallback(
-    (inputCoin) => {
+    (inputCoin, acc) => {
       let copyCoin = coin;
       const totalCoin = coin.reduce((acc, { unit, count }) => acc + unit * count, 0);
-      let acc = 0;
 
       if (inputCoin > totalCoin) return initCoin(totalCoin);
 
@@ -47,11 +46,11 @@ function useCoin(init) {
           return acc;
         }
 
-        const result = recursive(remainCoin - nearCoin);
+        const result = recursive(remainCoin - nearCoin, acc);
         return result;
       }
 
-      return recursive(inputCoin);
+      return recursive(inputCoin, acc);
     },
     [coin]
   );

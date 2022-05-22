@@ -2,13 +2,6 @@ import { useContext } from "react";
 import { AddHistoryContext, CorrectCoinContext, InsertCoinContext, SetInsertCoinContext } from "context";
 import { StyledInsertCoin, TotalInsertCoin } from "./VendController.styled";
 
-const TotalInsertCoin = styled.p`
-  color: #f2f2f2;
-  border: 2px solid;
-  border-radius: 10px;
-  padding: 20px;
-`;
-
 function InsertCoin() {
   const correctCoin = useContext(CorrectCoinContext);
   const insertCoin = useContext(InsertCoinContext);
@@ -20,7 +13,8 @@ function InsertCoin() {
     target.value = "";
 
     if (!inputCoin) return;
-    const correctedCoin = correctCoin(inputCoin);
+    const acc = 0;
+    const correctedCoin = correctCoin(inputCoin, acc);
     setInsertCoin((prevInsertCoin) => prevInsertCoin + correctedCoin);
     addHistory("INSERT_COIN", {
       coin: correctedCoin,

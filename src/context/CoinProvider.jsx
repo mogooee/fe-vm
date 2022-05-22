@@ -9,20 +9,21 @@ const CorrectCoinContext = createContext();
 
 function CoinProvider({ children }) {
   const { coin, selectCoin, correctCoin, returnChange } = useCoin(money);
-  const { setDebounce } = useTimer();
+  const { timerId, setDebounce } = useTimer();
   const insertCoin = useContext(InsertCoinContext);
   const addHistory = useContext(AddHistoryContext);
   const setInsertCoin = useContext(SetInsertCoinContext);
 
   const autoReturn = () => {
     const change = insertCoin;
+    if (!change) return;
     setInsertCoin(0);
     addHistory("RETURN_COIN", { change });
     returnChange(change);
   };
 
   useEffect(() => {
-    if (!insertCoin) return;
+    if (!timerId && !insertCoin) return;
     const delaySelectTime = 3000;
     setDebounce(autoReturn, delaySelectTime);
   }, [insertCoin]);

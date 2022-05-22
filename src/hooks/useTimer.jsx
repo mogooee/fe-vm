@@ -10,7 +10,7 @@ const useTimer = () => {
     setTimerId(setTimeout(callback, delay));
   };
 
-  return { setTimer, setDebounce };
+  return { timerId, setTimer, setDebounce };
 };
 
 export { useTimer };

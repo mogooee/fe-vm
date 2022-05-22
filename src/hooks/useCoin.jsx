@@ -4,16 +4,20 @@ import { near } from "utils";
 function useCoin(init) {
   const [coin, setCoin] = useState(init);
 
-  const decreaseCount = (prevCoin, unit) =>
-    prevCoin.map((current) => {
+  const changeCount = (type, count, prevCoin, unit) => {
+    const num = type === "decrease" ? -count : count;
+    return prevCoin.map((current) => {
       if (current.unit === unit) {
-        return { ...current, count: current.count - 1 };
+        return { ...current, count: current.count + num };
       }
       return current;
     });
+  };
 
   const selectCoin = useCallback((unit) => {
-    setCoin((prevCoin) => decreaseCount(prevCoin, unit));
+    const type = "decrease";
+    const num = 1;
+    setCoin((prevCoin) => changeCount(type, num, prevCoin, unit));
   }, []);
 
   const initCoin = (totalCoin) => {
@@ -39,7 +43,9 @@ function useCoin(init) {
         const nearCoin = copyCoin.find((e) => e.unit === unit).unit;
 
         acc += nearCoin;
-        copyCoin = decreaseCount(copyCoin, unit);
+        const type = "decrease";
+        const count = 1;
+        copyCoin = changeCount(type, count, copyCoin, unit);
 
         if (inputCoin <= acc) {
           setCoin(copyCoin);
@@ -55,7 +61,36 @@ function useCoin(init) {
     [coin]
   );
 
-  return { coin, selectCoin, correctCoin };
+  const returnChange = useCallback(
+    (change) => {
+      let copyCoin = coin;
+
+      function recursive(remainCoin) {
+        const unitArr = copyCoin.map((e) => e.unit);
+        const unit = near(unitArr, remainCoin);
+
+        const nearCoin = copyCoin.find((e) => e.unit === unit).unit;
+
+        change -= nearCoin;
+        const type = "increase";
+        const num = 1;
+        copyCoin = changeCount(type, num, copyCoin, unit);
+
+        if (!change) {
+          setCoin(copyCoin);
+          return;
+        }
+
+        const result = recursive(change);
+        return result;
+      }
+
+      return recursive(change);
+    },
+    [coin]
+  );
+
+  return { coin, selectCoin, correctCoin, returnChange };
 }
 
 export { useCoin };

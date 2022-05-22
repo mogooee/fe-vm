@@ -8,15 +8,17 @@ const SelectCoinContext = createContext();
 const CorrectCoinContext = createContext();
 
 function CoinProvider({ children }) {
-  const { coin, selectCoin, correctCoin } = useCoin(money);
+  const { coin, selectCoin, correctCoin, returnChange } = useCoin(money);
   const { setDebounce } = useTimer();
   const insertCoin = useContext(InsertCoinContext);
   const addHistory = useContext(AddHistoryContext);
   const setInsertCoin = useContext(SetInsertCoinContext);
 
   const autoReturn = () => {
+    const change = insertCoin;
     setInsertCoin(0);
-    addHistory("RETURN_COIN", { change: insertCoin });
+    addHistory("RETURN_COIN", { change });
+    returnChange(change);
   };
 
   useEffect(() => {

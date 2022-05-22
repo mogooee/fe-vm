@@ -12,16 +12,16 @@ function SelectButton({ name, price, stocked }) {
     return stocked && price < insertCoin;
   };
 
+  const purchaseProduct = (change) => {
+    addHistory("PURCHASE_PRODUCT", { product: name });
+    setInsertCoin(change);
+  };
+
   const handleSelectButtonClick = () => {
     if (!insertCoin) return;
     const change = insertCoin - price;
 
-    const purchaseProduct = () => {
-      addHistory("PURCHASE_PRODUCT", { product: name });
-      setInsertCoin(change);
-    };
-
-    purchaseProduct();
+    purchaseProduct(change);
   };
 
   return (

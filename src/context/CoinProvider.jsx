@@ -6,6 +6,7 @@ import { money } from "data";
 const CoinContext = createContext();
 const SelectCoinContext = createContext();
 const CorrectCoinContext = createContext();
+const ReturnCoinContext = createContext();
 
 function CoinProvider({ children }) {
   const { coin, selectCoin, correctCoin, returnChange } = useCoin(money);
@@ -31,10 +32,12 @@ function CoinProvider({ children }) {
   return (
     <CoinContext.Provider value={coin}>
       <SelectCoinContext.Provider value={selectCoin}>
-        <CorrectCoinContext.Provider value={correctCoin}>{children}</CorrectCoinContext.Provider>
+        <CorrectCoinContext.Provider value={correctCoin}>
+          <ReturnCoinContext.Provider value={autoReturn}>{children}</ReturnCoinContext.Provider>
+        </CorrectCoinContext.Provider>
       </SelectCoinContext.Provider>
     </CoinContext.Provider>
   );
 }
 
-export { CoinContext, SelectCoinContext, CorrectCoinContext, CoinProvider };
+export { CoinContext, SelectCoinContext, CorrectCoinContext, ReturnCoinContext, CoinProvider };

@@ -1,13 +1,12 @@
 import { Button } from "components";
-import { SetInsertCoinContext } from "context";
+import { ReturnCoinContext } from "context";
 import { useContext } from "react";
 
 function ChangeOutlet() {
-  const setInsertCoin = useContext(SetInsertCoinContext);
-  const handleChangeButtonClick = () => setInsertCoin(0);
+  const autoReturn = useContext(ReturnCoinContext);
 
   return (
-    <Button color="black" size="large" onClick={handleChangeButtonClick}>
+    <Button color="black" size="large" onClick={autoReturn}>
       CHANGE
     </Button>
   );

@@ -9,7 +9,7 @@ function SelectButton({ name, price, stocked }) {
 
   const isPurchasable = () => {
     if (!insertCoin) return stocked;
-    return stocked && price < insertCoin;
+    return stocked && price <= insertCoin;
   };
 
   const purchaseProduct = (change) => {
